@@ -1,85 +1,173 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'boxicons/css/boxicons.min.css';
 
 const Header = () => {
-  // Toggle mobile menu visibility
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Toggle mobile menu
   const toggleMobileMenu = () => {
-    const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.toggle('hidden');
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Close mobile menu when clicking a link
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
   };
 
   return (
-    <header className='flex justify-between items-center py-4 px-4 lg:px-20 relative z-50'>
-      <h1 className='text-3xl md:text-4xl lg:text-5xl font-light m-0'>
-        MCODE
-      </h1>
+    <header className={`fixed top-0 left-0 right-0 flex justify-between items-center py-4 px-4 lg:px-20 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-black/90 backdrop-blur-lg border-b border-gray-800/50' 
+        : 'bg-transparent'
+    }`}>
+      
+      {/* Logo - Fixed Alignment */}
+      <div className="flex items-center gap-3">
+        <div className="relative flex items-center justify-center">
+          {/* Live Indicator - Fixed Position */}
+          <div className="relative flex items-center gap-2">
+            <div className="w-2 h-2 bg-[#f7931e] rounded-full animate-pulse"></div>
+            <div className="absolute -inset-1 border border-[#f7931e] rounded-full animate-ping"></div>
+          </div>
+          
+          {/* Logo Text - Properly Aligned */}
+          <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent tracking-wider ml-3'>
+            AAA<span className="text-[#f7931e]">HUB</span>
+          </h1>
+        </div>
+      </div>
 
       {/* Desktop Navigation */}
-      <nav className='hidden md:flex items-center gap-12'>
-        <a
-          href="#"
-          className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1000"
-        >
-          Home
-        </a>
-        <a
-          href="#"
-          className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1200"
-        >
-          Games
-        </a>
-        <a
-          href="#"
-          className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1400"
-        >
-          About
-        </a>
-        <a
-          href="#"
-          className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'
-          data-aos="fade-down"
-          data-aos-easing="linear"
-          data-aos-duration="1600"
-        >
-          Contact
-        </a>
+      <nav className='hidden md:flex items-center gap-8 lg:gap-12'>
+        {[
+          { name: 'Home', delay: 1000 },
+          { name: 'Games', delay: 1200 },
+          { name: 'Reviews', delay: 1400 },
+          { name: 'News', delay: 1600 },
+          { name: 'Community', delay: 1800 }
+        ].map((item, index) => (
+          <a
+            key={item.name}
+            href={`#${item.name.toLowerCase()}`}
+            className='relative text-sm lg:text-base tracking-wider text-gray-300 hover:text-white transition-all duration-300 group py-2'
+            data-aos="fade-down"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration={item.delay}
+          >
+            {item.name}
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f7931e] group-hover:w-full transition-all duration-300"></span>
+          </a>
+        ))}
       </nav>
 
-      {/* Desktop Button */}
-      <button className='hidden md:block bg-[#a7a7a7] text-black py-3 px-8 rounded-full font-medium transition-all duration-500 hover:bg-white cursor-pointer z-50'>
-        Sign Up / Sign In
-      </button>
+      {/* Desktop CTA Buttons */}
+      <div className="hidden md:flex items-center gap-4">
+        <button className='flex items-center gap-2 bg-transparent border border-gray-600 text-white py-2 px-6 rounded-full font-medium transition-all duration-300 hover:border-[#f7931e] hover:bg-[#f7931e]/10 cursor-pointer'>
+          <i className='bx bx-search text-lg'></i>
+          Search
+        </button>
+        
+        <button className='flex items-center gap-2 bg-gradient-to-r from-[#f7931e] to-[#ff6b35] text-black py-2 px-6 rounded-full font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(247,147,30,0.4)] hover:scale-105 cursor-pointer'>
+          <i className='bx bx-game text-lg'></i>
+          Join Now
+        </button>
+      </div>
 
       {/* Mobile Menu Toggle */}
       <button
         onClick={toggleMobileMenu}
-        className='md:hidden text-3xl p-2 z-50'
+        className={`md:hidden relative w-10 h-10 flex flex-col justify-center items-center z-50 transition-all duration-300 ${
+          isMobileMenuOpen ? 'text-[#f7931e]' : 'text-white'
+        }`}
         aria-label="Toggle mobile menu"
       >
-        <i className='bx bx-menu-alt-left'></i>
+        <span className={`w-6 h-0.5 bg-current transition-all duration-300 ${
+          isMobileMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'
+        }`}></span>
+        <span className={`w-6 h-0.5 bg-current transition-all duration-300 ${
+          isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
+        }`}></span>
+        <span className={`w-6 h-0.5 bg-current transition-all duration-300 ${
+          isMobileMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'
+        }`}></span>
       </button>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation Overlay */}
       <div
-        id='mobileMenu'
-        className='hidden fixed top-0 left-0 right-0 bottom-0 p-5 md:hidden z-40 bg-black bg-opacity-70 backdrop-blur-md'
+        className={`fixed top-0 right-0 bottom-0 w-80 bg-gradient-to-b from-black to-gray-900 border-l border-gray-800/50 backdrop-blur-lg transform transition-transform duration-500 ease-in-out z-40 ${
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
-        <nav className='flex flex-col gap-6 items-center mt-20'>
-          <a href="#" className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>Home</a>
-          <a href="#" className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>Games</a>
-          <a href="#" className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>About</a>
-          <a href="#" className='text-base tracking-wider transition-colors hover:text-gray-300 z-50'>Contact</a>
+        {/* Mobile Menu Header */}
+        <div className="p-6 border-b border-gray-800/50">
+          <div className="flex items-center gap-3">
+            {/* Live Indicator in Mobile Menu */}
+            <div className="relative flex items-center gap-2">
+              <div className="w-2 h-2 bg-[#f7931e] rounded-full animate-pulse"></div>
+              <span className="text-white font-semibold text-sm">LIVE</span>
+            </div>
+            <span className="text-white font-semibold ml-2">Navigation</span>
+          </div>
+        </div>
+
+        {/* Mobile Menu Content */}
+        <nav className='flex flex-col p-6'>
+          {['Home', 'Games', 'Reviews', 'News', 'Community', 'About', 'Contact'].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={closeMobileMenu}
+              className='group flex items-center gap-4 py-4 text-gray-300 hover:text-white border-b border-gray-800/50 hover:border-[#f7931e]/30 transition-all duration-300'
+            >
+              <i className='bx bx-chevron-right text-[#f7931e] group-hover:translate-x-1 transition-transform duration-300'></i>
+              <span className="text-base tracking-wider">{item}</span>
+            </a>
+          ))}
+          
+          {/* Mobile CTA Buttons */}
+          <div className="flex flex-col gap-3 mt-8 pt-6 border-t border-gray-800/50">
+            <button className='w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#f7931e] to-[#ff6b35] text-black py-3 rounded-full font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(247,147,30,0.4)] cursor-pointer'>
+              <i className='bx bx-game'></i>
+              Join Community
+            </button>
+            <button className='w-full flex items-center justify-center gap-2 border border-gray-600 text-white py-3 rounded-full font-medium transition-all duration-300 hover:border-[#f7931e] hover:bg-[#f7931e]/10 cursor-pointer'>
+              <i className='bx bx-log-in'></i>
+              Sign In
+            </button>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex justify-center gap-4 mt-8 pt-6 border-t border-gray-800/50">
+            {['bxl-twitter', 'bxl-discord', 'bxl-youtube', 'bxl-steam'].map((icon) => (
+              <a
+                key={icon}
+                href="#"
+                className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center text-gray-400 hover:text-[#f7931e] hover:border-[#f7931e] transition-all duration-300"
+              >
+                <i className={`bx ${icon} text-lg`}></i>
+              </a>
+            ))}
+          </div>
         </nav>
       </div>
+
+      {/* Mobile Overlay Background */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-30 md:hidden"
+          onClick={closeMobileMenu}
+        ></div>
+      )}
     </header>
   );
 };
