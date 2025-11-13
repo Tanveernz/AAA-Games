@@ -19,25 +19,16 @@ const Hero = () => {
         data-aos-delay="200"
         className="z-10 max-w-2xl mt-32 lg:mt-0 relative"
       >
-        
-        {/* Tag Box - Improved */}
-        <div className="relative w-fit h-12 bg-gradient-to-r from-[#ff6b35] to-[#f7931e] rounded-full text-white px-6 mb-8 group hover:shadow-[0_0_30px_rgba(247,147,30,0.3)] transition-all duration-500">
-          <div className="absolute inset-[2px] bg-black rounded-full flex items-center justify-center gap-3 text-sm font-medium tracking-wider">
-            <i className="bx bx-game text-xl text-[#f7931e]"></i>
-            WELCOME TO AAA GAMES
-          </div>
-        </div>
-
-        {/* Heading - More Gaming Themed */}
+        {/* Heading */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-          AAA <span className="text-[#f7931e]">GAMES</span> 
+          AAA <span className="text-[#f7931e]">GAMES</span>
           <br />
           <span className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-[0.2em]">
             HUB
           </span>
         </h1>
 
-        {/* Description - More Specific */}
+        {/* Description */}
         <p className="text-lg sm:text-xl tracking-wide text-gray-300 max-w-lg mb-10 leading-relaxed">
           Discover the world's most epic AAA titles. Track your collection, 
           explore new releases, and join the ultimate gaming community.
@@ -59,7 +50,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* CTA Buttons - Improved */}
+        {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4">
           <a
             href="#games"
@@ -81,56 +72,69 @@ const Hero = () => {
         {/* Scroll Indicator */}
         <div className="absolute -bottom-20 left-0 hidden lg:flex items-center gap-3 text-gray-400">
           <div className="w-px h-12 bg-gradient-to-b from-[#f7931e] to-transparent"></div>
-          <span className="text-sm tracking-wider rotate-90 origin-left translate-x-2">SCROLL TO EXPLORE</span>
+          <span className="text-sm tracking-wider rotate-90 origin-left translate-x-2">
+            SCROLL TO EXPLORE
+          </span>
         </div>
       </div>
 
-      {/* Spline Section - Improved */}
+      {/* Right Side - Spline Section */}
       <div 
         data-aos="zoom-out-left" 
         data-aos-delay="500"
         className="relative z-10 w-full lg:w-[45%] h-[500px] lg:h-screen mt-10 lg:mt-0"
       >
-        {/* Loading State */}
+        {/* Loading Spinner */}
         {!isSplineLoaded && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 border-4 border-[#f7931e] border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
-        
-        {/* Spline with Overlay */}
+
+        {/* Spline Scene */}
         <div className={`relative w-full h-full transition-opacity duration-1000 ${isSplineLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <Spline 
             scene="https://prod.spline.design/KMWHPT4wRs0SVVkZ/scene.splinecode"
             onLoad={() => setIsSplineLoaded(true)}
           />
-          
-          {/* Gradient Overlay */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-10 right-10 hidden xl:block">
+        {/* Floating Elements - Bottom Right */}
+        <div className="absolute bottom-6 right-6 hidden xl:block">
           <div className="bg-black/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-4 animate-float">
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-white text-sm">Live Gaming Stats</span>
+            {/* Live Gaming Stats */}
+            <div className="flex items-start gap-3">
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse mt-1"></div>
+              <div className="flex flex-col">
+                <span className="text-white text-sm font-medium">Live Gaming Stats</span>
+                <span className="text-gray-400 text-xs">Active</span>
+              </div>
+            </div>
+
+            {/* Upcoming Releases */}
+            <div className="flex items-start gap-3 mt-2">
+              <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse mt-1"></div>
+              <div className="flex flex-col">
+                <span className="text-white text-sm font-medium">Upcoming Releases</span>
+                <span className="text-gray-400 text-xs">3 Titles</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Social Links */}
-      <div className="absolute bottom-8 left-8 hidden lg:flex flex-col gap-4 z-10">
-        {['bxl-twitter', 'bxl-discord', 'bxl-youtube', 'bxl-steam'].map((icon) => (
-          <a
-            key={icon}
-            href="#"
-            className="w-12 h-12 border border-gray-700 rounded-full flex items-center justify-center text-gray-400 hover:text-[#f7931e] hover:border-[#f7931e] hover:scale-110 transition-all duration-300"
-          >
-            <i className={`bx ${icon} text-xl`}></i>
-          </a>
-        ))}
+        {/* Social Links */}
+        <div className="absolute bottom-8 left-8 hidden lg:flex flex-col gap-4 z-10">
+          {['bxl-twitter', 'bxl-discord', 'bxl-youtube', 'bxl-steam'].map((icon) => (
+            <a
+              key={icon}
+              href="#"
+              className="w-12 h-12 border border-gray-700 rounded-full flex items-center justify-center text-gray-400 hover:text-[#f7931e] hover:border-[#f7931e] hover:scale-110 transition-all duration-300"
+            >
+              <i className={`bx ${icon} text-xl`}></i>
+            </a>
+          ))}
+        </div>
       </div>
     </main>
   );

@@ -31,20 +31,11 @@ const Header = () => {
         : 'bg-transparent'
     }`}>
       
-      {/* Logo - Fixed Alignment */}
-      <div className="flex items-center gap-3">
-        <div className="relative flex items-center justify-center">
-          {/* Live Indicator - Fixed Position */}
-          <div className="relative flex items-center gap-2">
-            <div className="w-2 h-2 bg-[#f7931e] rounded-full animate-pulse"></div>
-            <div className="absolute -inset-1 border border-[#f7931e] rounded-full animate-ping"></div>
-          </div>
-          
-          {/* Logo Text - Properly Aligned */}
-          <h1 className='text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent tracking-wider ml-3'>
-            AAA<span className="text-[#f7931e]">HUB</span>
-          </h1>
-        </div>
+      {/* Clean Logo */}
+      <div className="flex items-center">
+        <h1 className='text-2xl md:text-3xl font-bold text-white tracking-wide'>
+          <span className="text-[#f7931e]">AAA</span>HUB
+        </h1>
       </div>
 
       {/* Desktop Navigation */}
@@ -111,12 +102,7 @@ const Header = () => {
         {/* Mobile Menu Header */}
         <div className="p-6 border-b border-gray-800/50">
           <div className="flex items-center gap-3">
-            {/* Live Indicator in Mobile Menu */}
-            <div className="relative flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#f7931e] rounded-full animate-pulse"></div>
-              <span className="text-white font-semibold text-sm">LIVE</span>
-            </div>
-            <span className="text-white font-semibold ml-2">Navigation</span>
+            <span className="text-white font-semibold">Menu</span>
           </div>
         </div>
 
