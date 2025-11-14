@@ -1,6 +1,7 @@
 import 'boxicons/css/boxicons.min.css';
 import Spline from '@splinetool/react-spline';
 import { useState } from 'react';
+import GamesSection from './components/GamesSection';
 
 const Hero = () => {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false);
@@ -68,15 +69,7 @@ const Hero = () => {
             Top Rated
           </a>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute -bottom-20 left-0 hidden lg:flex items-center gap-3 text-gray-400">
-          <div className="w-px h-12 bg-gradient-to-b from-[#f7931e] to-transparent"></div>
-          <span className="text-sm tracking-wider rotate-90 origin-left translate-x-2">
-            SCROLL TO EXPLORE
-          </span>
-        </div>
-      </div>
+      </div> {/* Missing closing div for Left Content */}
 
       {/* Right Side - Spline Section */}
       <div 
