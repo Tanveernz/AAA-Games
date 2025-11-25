@@ -1,7 +1,6 @@
 import 'boxicons/css/boxicons.min.css';
 import Spline from '@splinetool/react-spline';
 import { useState } from 'react';
-import GamesSection from './components/GamesSection';
 
 const Hero = () => {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false);
